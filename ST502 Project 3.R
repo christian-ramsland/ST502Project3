@@ -40,33 +40,35 @@ var.test(x=USmpg,y=JapanMPG,alternative="two.sided")
 
 # Part 2 Simulation Study
 
-count <- 0
-storeresults <- matrix(nrow = 135, ncol = 3)
+
+storeresults <- matrix(nrow = 135, ncol = 5)
 N = 100
 sigmasq1 <- c(1,3,9)
 sigmasq2 <- 1
-n1 <- c(10,25,60)
-n2 <- c(10,25,60)
+sampleobs1 <- c(10,25,60)
+sampleobs2 <- c(10,25,60)
 mew <- 0
 mewtwo <- c(-5,-1,0,1,5)
 
-
-for(i in 1:length(mewtwo)){
-  for(j in 1:length(sigmasq2)){
-    for(k in 1:length(n1)){
-      for(l in 1:length(n2)){
-        pass = 0 # counter for numbers of times it passes
-        
-        for(i in 1:N){
-          ynull = rnorm(n1[k], mean = mew, sd=sqrt(sigmasq1[j]))
-          yalt = rnorm(n2[l], mean = mewtwo[i], sd=1)
+count <- 0
+for(i in 1:length(mewtwo)){ #mewtwo
+  for(j in 1:length(sigmasq1)){
+    for(k in length(sampleobs1)){ #n1
+      for(l in length(sampleobs2)){ #n2
+        pass = 0 # counter for numbers of times it rejects H0
+        for(m in 1:N){
+          ynull = rnorm(n = sampleobs1[k], mean = mew, sd=sqrt(sigmasq1[j]))
+          yalt = rnorm(n = sampleobs2[l], mean = mewtwo[i])
           test = t.test(ynull,yalt, var.equal = FALSE)
           pass = ifelse((test$p.value < 0.05), pass + 1, pass)
         }
       count = count + 1
       storeresults[count,1] = count
       storeresults[count,2] = mewtwo[i]
-      storeresults[count,3] = pass
+      storeresults[count,3] = sampleobs1[k]
+      storeresults[count,4] = sampleobs2[l]
+      storeresults[count,5] = sigmasq1[j]
+      storeresults[count,6] = pass
       }
     }
       
