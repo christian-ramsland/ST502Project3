@@ -53,8 +53,8 @@ mewtwo <- c(-5,-1,0,1,5)
 count <- 0
 for(i in 1:length(mewtwo)){ #mewtwo
   for(j in 1:length(sigmasq1)){
-    for(k in length(sampleobs1)){ #n1
-      for(l in length(sampleobs2)){ #n2
+    for(k in 1:length(sampleobs1)){ #n1
+      for(l in 1:length(sampleobs2)){ #n2
         pass = 0 # counter for numbers of times it rejects H0
         for(m in 1:N){
           ynull = rnorm(n = sampleobs1[k], mean = mew, sd=sqrt(sigmasq1[j]))
@@ -71,7 +71,6 @@ for(i in 1:length(mewtwo)){ #mewtwo
       storeresults[count,6] = pass
       }
     }
-      
-    }
+  }
 }
 
