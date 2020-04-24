@@ -41,7 +41,7 @@ var.test(x=USmpg,y=JapanMPG,alternative="two.sided")
 # Part 2 Simulation Study
 
 
-storeresults <- matrix(nrow = 135, ncol = 5)
+storeresults <- matrix(nrow = 135, ncol = 6)
 N = 100
 sigmasq1 <- c(1,3,9)
 sigmasq2 <- 1
@@ -73,16 +73,5 @@ for(i in 1:length(mewtwo)){ #mewtwo
     }
       
     }
-  }
-
-
-o = 0
-ynull = rnorm(n = 25, mean = 0, sd=sqrt(1))
-yalt = rnorm(n = 10, mean = -1, sd=sqrt(1))
-test = t.test(ynull,yalt, var.equal = TRUE)
-q <- test$p.value
-o = ifelse((q < 0.05), o + 1, o)
-
-
-
+}
 
